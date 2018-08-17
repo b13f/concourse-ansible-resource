@@ -58,14 +58,9 @@ COPY tests/ /opt/resource/tests/
 # install resource assets
 COPY assets/ /opt/resource/
 
-# install tests
-#ADD scripts/* /tmp/
-#RUN /tmp/install_test.sh
-
-
-# test
-#RUN /tmp/test.sh
-#RUN /tmp/cleanup_test.sh
+RUN mkdir /root/.ssh
+COPY key /root/.ssh/id_rsa
+RUN chmod 0600 /root/.ssh/id_rsa
 
 # default command: display local setup
 CMD ["ansible", "-c", "local", "-m", "setup", "all"]
